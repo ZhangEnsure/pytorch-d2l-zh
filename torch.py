@@ -8,4 +8,4 @@
 在这里介绍传作初衷
 """
 
-print("hello world")
+print("hello world 666")
