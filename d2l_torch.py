@@ -41,3 +41,44 @@ def data_iter(batch_size, features, labels):
         # 获得打乱下标后的顺序 batch_size 个下标列表
         batch_indices = indices[i:min(i + batch_size, numberExample)]
         yield features[batch_indices], labels[batch_indices]
+
+
+def sgd(params, lr, batch_size):
+    """
+    李沐老师实现的 sgd 优化方法
+    :param params: 作为一个列表传入
+    :param lr: 学习率
+    :param batch_size: 计算损失时没有求平均，是 batch_size 个样本的损失和
+    :return: 无
+    """
+    # 表明当前计算不需要反向传播，使用之后，强制后边的内容不进行计算图的构建
+    with torch.no_grad():
+        for param in params:
+            # error warning: param = param - param.grad*lr/batch_size
+            # 这里涉及到 python 对象参数传递的问题，可见 test_object_pass 函数
+            # 这里的 params id 不发生变化，所以这里修改，实参也发生变化
+            param -= param.grad*lr/batch_size
+            # pytorch会不断的累加变量的梯度，所以每更新一次参数，都要使对应的梯度清零
+            param.grad.zero_()
+
+
+def linreg(X, w, b):
+    """
+    定义模型（向前传播）
+    :param X: 特征
+    :param w: 权重
+    :param b: 偏差
+    :return: 向前传播计算结果
+    """
+    return torch.matmul(X, w) + b
+
+
+def squared_loss(y_hat, y):
+    """
+    定义损失函数
+    :param y_hat: 预测值
+    :param y: 实际标签值
+    :return: 平方损失
+    """
+    return (y_hat - y.reshape(y_hat.shape))**2/2
+
