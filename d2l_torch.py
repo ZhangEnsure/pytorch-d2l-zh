@@ -6,10 +6,12 @@
 import torch
 import random
 from d2l import torch as d2l
+from torch.utils import data
 
 """
 chap1-chap4
 """
+
 
 
 # linear-regression-scratch
@@ -81,4 +83,22 @@ def squared_loss(y_hat, y):
     :return: 平方损失
     """
     return (y_hat - y.reshape(y_hat.shape))**2/2
+
+
+# linear-regression-concise
+
+def load_array(data_arrays, batch_size, is_train=True):
+    """
+    在上面我们手动实现了根据 batch_size 返回样本和标签，这里我们使用框架来实现
+    :param data_arrays: 样本和标签组成的元组
+    :param batch_size: 批量大小
+    :param is_train:
+    :return:
+    """
+    # TensorDataset:把输入的两类数据进行一一对应
+    TensorDataset = data.TensorDataset(*data_arrays)
+    # DataLoader：重新排序
+    return data.DataLoader(TensorDataset, batch_size, shuffle=is_train)
+
+
 

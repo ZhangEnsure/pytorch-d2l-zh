@@ -5,7 +5,10 @@
 
 from d2l_torch import *
 import torch
+from torch import nn
 
+
+# linear-regression-scratch
 
 def getLinRegData():
     """
@@ -68,8 +71,8 @@ def LinRegTrain():
 # 不可变对象参数修改后 id 地址发生变化，实参的原 id 地址所指向的值不变
 # 可变参数例如 list，在函数形参中如果发生对象的修改变化则 id 不变，非对象修改
 # 则属于创建一个新的对象，id 发生变化
-data = [1, 2, 3]
-print(id(data))
+# data = [1, 2, 3]
+# print(id(data))
 
 
 def test_object_pass(x):
@@ -82,9 +85,9 @@ def test_object_pass(x):
     print(id(x))
 
 
-test_object_pass(data)
-print(f'{data}')
-print(id(data))
+# test_object_pass(data)
+# print(f'{data}')
+# print(id(data))
 """
 2799466353920
 2799466353920
@@ -95,3 +98,35 @@ print(id(data))
 [1, 2]
 2799466353920 # 原 data 对象的 id 不变，但是内容被对象内修改导致值发生了变化
 """
+
+
+# linear-regression-concise
+
+def init_weights(m):
+    if type(m) == nn.Linear:
+        nn.init.normal_(m.weight, std=0.01)
+        nn.init.zeros_(m.bias)
+
+
+def moduleLinReg():
+    # 定义模型
+    net = nn.Sequential(nn.Linear(2, 1))
+    net.apply(init_weights)
+    loss = nn.MSELoss()
+    # 记得加入 net.parameters()
+    trainer = torch.optim.SGD(net.parameters(), lr=0.03)
+    features, labels = getLinRegData()
+    batch_size = 10
+    epochs = 3
+    data_iter= load_array((features, labels), batch_size)
+    for epoch in range(epochs):
+        for x, y in data_iter:
+            l = loss(net(x), y)
+            # 在优化函数中将梯度清零
+            trainer.zero_grad()
+            l.backward()
+            trainer.step()
+        trainLoss = loss(net(features), labels)
+        print(f'epoch {epoch + 1}, loss {float(trainLoss.mean()):.6f}')
+
+moduleLinReg()
