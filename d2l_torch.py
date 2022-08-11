@@ -10,11 +10,9 @@ from torch.utils import data
 import torchvision
 from torchvision import transforms
 
-
 """
 chap1-chap4
 """
-
 
 
 # linear-regression-scratch
@@ -62,7 +60,7 @@ def sgd(params, lr, batch_size):
             # error warning: param = param - param.grad*lr/batch_size
             # 这里涉及到 python 对象参数传递的问题，可见 test_object_pass 函数
             # 这里的 params id 不发生变化，所以这里修改，实参也发生变化
-            param -= param.grad*lr/batch_size
+            param -= param.grad * lr / batch_size
             # pytorch会不断的累加变量的梯度，所以每更新一次参数，都要使对应的梯度清零
             param.grad.zero_()
 
@@ -85,7 +83,7 @@ def squared_loss(y_hat, y):
     :param y: 实际标签值
     :return: 平方损失
     """
-    return (y_hat - y.reshape(y_hat.shape))**2/2
+    return (y_hat - y.reshape(y_hat.shape)) ** 2 / 2
 
 
 # linear-regression-concise
@@ -106,7 +104,34 @@ def load_array(data_arrays, batch_size, is_train=True):
 
 # image-classification-dataset
 
-
-
+def show_images(imgs, num_rows, num_cols, titles=None, scale=1.5):
+    """
+    在 jupyter notebook 中绘图
+    :param imgs: 图片列表
+    :param num_rows: 子图的行数
+    :param num_cols: 子图的列数
+    :param titles: 子图的标题
+    :param scale:
+    :return:
+    """
+    # 先列后行!
+    figsize = (num_cols * scale, num_rows * scale)
+    _, axs = d2l.plt.subplots(nrows=num_rows, ncols=num_cols, figsize=figsize)
+    # 在用 plt.subplots 画多个子图中，ax = ax.flatten()将ax由n*m的Axes组展平成1*nm的Axes组
+    # 将二维矩阵展平为一维的向量，可以与匹配的img进行配对
+    axs = axs.flatten()
+    for i, (img, ax) in enumerate(zip(imgs, axs)):
+        if titles:
+            ax.set_title(titles[i])
+        # 设置取消 x y轴坐标
+        # set_visible() 别拼错了！
+        ax.xaxis.set_visible(False)
+        ax.yaxis.set_visible(False)
+        # Returns True if obj is a PyTorch tensor.
+        if torch.is_tensor(img):
+            ax.imshow(img.numpy())
+        else:
+            ax.imshow(img)
+    return axs
 
 
