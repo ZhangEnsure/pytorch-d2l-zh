@@ -7,6 +7,9 @@ import torch
 import random
 from d2l import torch as d2l
 from torch.utils import data
+import torchvision
+from torchvision import transforms
+
 
 """
 chap1-chap4
@@ -99,6 +102,11 @@ def load_array(data_arrays, batch_size, is_train=True):
     TensorDataset = data.TensorDataset(*data_arrays)
     # DataLoader：重新排序
     return data.DataLoader(TensorDataset, batch_size, shuffle=is_train)
+
+
+# image-classification-dataset
+
+
 
 
 
