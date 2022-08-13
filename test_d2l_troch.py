@@ -129,4 +129,15 @@ def moduleLinReg():
         trainLoss = loss(net(features), labels)
         print(f'epoch {epoch + 1}, loss {float(trainLoss.mean()):.6f}')
 
-moduleLinReg()
+# moduleLinReg()
+
+def test_softmax():
+    a = torch.randn(3, 4)
+    a = softmax(a)
+    print(a)
+    print(a.sum(dim=1, keepdims=True))
+
+# test_softmax()
+
+
+

@@ -7,6 +7,7 @@ import torch
 import random
 from d2l import torch as d2l
 from torch.utils import data
+from IPython import display
 import torchvision
 from torchvision import transforms
 
@@ -133,5 +134,47 @@ def show_images(imgs, num_rows, num_cols, titles=None, scale=1.5):
         else:
             ax.imshow(img)
     return axs
+
+# softmax-regression-scratch
+
+w = torch.normal(0,0.1,size=(784, 10), requires_grad=True)
+b = torch.zeros(10, requires_grad=True)
+
+def softmax(x):
+    """
+    实现 softmax 函数
+    :param x: 未规范化输出
+    :return:
+    """
+    x = torch.exp(x)
+    partital = x.sum(dim=1, keepdims=True)
+    return x/partital
+
+def net(X):
+    """
+    设计向前传播函数
+    1. 这里定义的 net 函数，是为了让后面的训练函数统一形式，而应用于框架实现、手动实现
+    2. 这里需要的是规范化的输出，可以直接进入 cross_entropy 计算损失
+    3. 因为这里是手动实现 softmax 回归，所以 w b 都是全局变量定义的
+    """
+    return softmax(torch.matmul(X.reshape(-1,w.shape[0]),w)+b)
+
+
+def updater(batch_size):
+    """
+    设计 updater 函数；实用函数
+    1. 作用同上面的 net 函数，即统一训练形式
+    """
+    lr = 0.1
+    d2l.sgd([w,b],lr ,batch_size)
+
+
+def cross_entropy(y_hat, y):
+    """
+    实现交叉熵损失函数
+    reduction='none'
+    """
+    return -torch.log(y_hat[range(len(y)), y])
+
 
 
