@@ -1,9 +1,9 @@
 # @Time : 2022/8/10 12:01 
 # @Author : 张恩硕
-# @File : test_d2l_troch.py 
+# @File : test_d2l_torch_chap1_4.py
 # @Software: PyCharm
 
-from d2l_torch import *
+from d2l_torch_chap1_4 import *
 import torch
 from torch import nn
 

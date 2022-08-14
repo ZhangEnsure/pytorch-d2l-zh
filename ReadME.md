@@ -28,3 +28,6 @@ train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。�
 
 除此之外，在分类问题，我们常常使用的是交叉熵 CrossEntropyLoss 损失函数，对这个函数的介绍，我在 CSDN 中写了详细的[文章](https://blog.csdn.net/Mr_Yuwen_Yin/article/details/126174583)供参考，包括手动实现 CrossEntropyLoss 等等。
 
+## 多层感知机 multilayers perceptrons
+
+在 softmax regression 中，我们的模型只有输入层和输出层。以 Fashion-MNIST 数据集为例，我们将一个 28*28 的图像展平为 784 的图片向量，并且一次读取一个 batch_size 批量的样本，但是这次我们加入了一个隐藏层叠加在输入层和输出层之间，并且使用非线性激活函数作为隐藏层的激活函数。总结来说，多层感知机也就是使用隐藏层和激活函数来得到非线性模型。

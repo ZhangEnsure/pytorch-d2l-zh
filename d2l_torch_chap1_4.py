@@ -1,10 +1,11 @@
 # @Time : 2022/8/9 23:23 
 # @Author : 张恩硕
-# @File : d2l_torch.py
+# @File : d2l_torch_chap1_4.py
 # @Software: PyCharm
 
 import torch
 import random
+from torch import nn
 from d2l import torch as d2l
 from torch.utils import data
 from IPython import display
