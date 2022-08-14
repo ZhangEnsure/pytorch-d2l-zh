@@ -24,6 +24,7 @@ softmax线性回归这里，我们处理的数据是来自 Fashion-MNIST 数据�
 
 其次，我们需要定义 softmax 函数，实现我们对 y_hat 输出值的规范化。Accumulator 类是应用于计算训练集和测试集在模型 net 上的 acc 精确性。train_epoch_ch3 函数是实现一次 epoch 的计算问题，特别地，我们要分别对手动和框架实现进行不同处理。
 
-train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。手动实现的 loss 是一个向量，我们需要 sum() 求和后进行自动梯度求导计算，在 updater 中还需要求 loss 的平均值后进行参数更新。
+train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。手动实现的 loss 是一个向量，我们需要 sum() 求和后进行自动梯度求导计算，在 updater 中还需要求 loss 的平均值后进行参数更新。在框架实现中，我们使用参数 reduction='none'，这样的话，得到的损失就是一个向量，随后我们将损失求和取平均后进行自动求导。不过需要注意的是，pytorch 的变量梯度是累加的计算，我们在计算新的梯度前需要把上次计算的梯度清零。
 
 除此之外，在分类问题，我们常常使用的是交叉熵 CrossEntropyLoss 损失函数，对这个函数的介绍，我在 CSDN 中写了详细的[文章](https://blog.csdn.net/Mr_Yuwen_Yin/article/details/126174583)供参考，包括手动实现 CrossEntropyLoss 等等。
+
