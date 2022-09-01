@@ -57,18 +57,22 @@ def learn_detection_vertical_edge():
     '''
     x = torch.ones(6, 8)
     x[:, 2:6] = 0
+    # shape[0]代表通道数，shape[1]代表 batch_size。这里都是 1
     x = x.reshape((1, 1, 6, 8))
     y = torch.zeros(6, 7)
     y[:, 1] = -1
     y[:, 5] = 1
+    # shape[0]代表通道数，shape[1]代表 batch_size。这里都是 1
     y = y.reshape((1, 1, 6, 7))
-
+    # nn.Conv2d(输入的通道数in_channels,输出的通道数out_channels,kernel_size)
     conv = nn.Conv2d(1, 1, kernel_size=(1, 2), bias=False)
+    # 3*0.01
     lr = 3e-2
     epochs = 15
     for epoch in range(epochs):
         y_hat = conv(x)
         l = (y_hat-y)**2
+        # 勿忘梯度清零
         conv.zero_grad()
         l.sum().backward()
         conv.weight.data[:] -= lr*conv.weight.grad
