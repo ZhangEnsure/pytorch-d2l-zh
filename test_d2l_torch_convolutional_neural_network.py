@@ -28,7 +28,7 @@ tensor([[ 0., -1.,  0.,  0.,  0.,  1.,  0.],
         [ 0., -1.,  0.,  0.,  0.,  1.,  0.]])
 '''
 
-learn_detection_vertical_edge()
+# learn_detection_vertical_edge()
 '''
 第2次训练，loss为5.468018054962158
 第4次训练，loss为0.936331570148468
@@ -39,3 +39,20 @@ learn_detection_vertical_edge()
 第14次训练，loss为0.0004902561195194721
 tensor([[-1.0003,  0.9971]])
 '''
+
+def test_corr2d_multi_in():
+    X = torch.tensor([[[0.0, 1.0, 2.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]],
+                      [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]])
+    K = torch.tensor([[[0.0, 1.0], [2.0, 3.0]], [[1.0, 2.0], [3.0, 4.0]]])
+    print(corr2d_multi_in(X, K))
+
+# test_corr2d_multi_in()
+
+def test_corr2d_multi_in_out():
+    X = torch.tensor([[[0.0, 1.0, 2.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]],
+                      [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]])
+    K = torch.tensor([[[0.0, 1.0], [2.0, 3.0]], [[1.0, 2.0], [3.0, 4.0]]])
+    K = torch.stack([K, K + 1, K + 2], 0)
+    print(corr2d_multi_in_out(X, K))
+
+# test_corr2d_multi_in_out()

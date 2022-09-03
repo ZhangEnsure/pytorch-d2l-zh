@@ -81,3 +81,21 @@ def learn_detection_vertical_edge():
     print(conv.weight.data.reshape((1, 2)))
 
 
+def corr2d_multi_in(X, K):
+    '''
+    多输入通道互相关运算，只返回单通道输出
+    :param X: 多输入张量
+    :param K: 卷积核
+    :return: 二维矩阵
+    '''
+    return sum(corr2d(x, k) for x, k in zip(X, K))
+
+
+def corr2d_multi_in_out(X, K):
+    '''
+    多个通道的输出的互相关函数
+    :param X: 在这里仍然是一个多输入张量
+    :param K: 4D卷积核
+    :return: 多输出张量
+    '''
+    return torch.stack([corr2d_multi_in(X, k) for k in K], dim=0)
