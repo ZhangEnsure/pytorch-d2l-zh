@@ -73,3 +73,5 @@ train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。�
 ### 多输入输出通道
 
 卷积层的输入通常是多通道 $(c_i,n_h,n_w)$。我们的卷积核通常是 4D，例如 nn.Conv2d(in_channels, out_channels, kernel_size,...) 对象就是四个维度 $(c_i,c_o,k_h,k_w)$，计算的结果就是有 $c_o$ 个二维矩阵的组合进行输出。
+
+### 汇聚层
