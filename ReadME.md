@@ -85,3 +85,4 @@ train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。�
 ### LeNet
 
 在 LeNet 网络中使用了卷积编码器和全连接层密集块。每一层的卷积都增加了通道数，每一个通道相当于一种识别图像空间信息的模式。mlp 将所有的模式进行计算。具体网络模型如下：
+![模型](https://github.com/ZhangEnsure/pytorch-d2l-zh/raw/master/pic/lenet.jpg)
