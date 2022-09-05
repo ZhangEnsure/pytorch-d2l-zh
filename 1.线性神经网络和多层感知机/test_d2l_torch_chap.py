@@ -3,7 +3,7 @@
 # @File : test_d2l_torch_chap.py 
 # @Software: PyCharm
 
-from d2l_torch_chap import *
+from 线性神经网络和多层感知机.d2l_torch_chap import *
 
 # test class Net begin
 num_inputs, num_outputs, num_hiddens1, num_hiddens2 = 784, 10, 256, 256

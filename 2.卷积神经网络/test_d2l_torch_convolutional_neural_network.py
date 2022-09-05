@@ -3,7 +3,7 @@
 # @File : test_d2l_torch_convolutional_neural_network.py.py 
 # @Software: PyCharm
 
-from d2l_torch_convolutional_neural_network import *
+from 卷积神经网络.d2l_torch_convolutional_neural_network import *
 
 
 def test_corr2d():

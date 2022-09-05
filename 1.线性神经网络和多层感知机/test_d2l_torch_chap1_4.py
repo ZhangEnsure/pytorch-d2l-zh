@@ -3,7 +3,7 @@
 # @File : test_d2l_torch_chap1_4.py
 # @Software: PyCharm
 
-from d2l_torch_chap1_4 import *
+from 线性神经网络和多层感知机.d2l_torch_chap1_4 import *
 import torch
 from torch import nn
 
