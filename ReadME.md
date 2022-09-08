@@ -86,3 +86,22 @@ train_epoch_ch3 中，最主要的是 loss 计算后的形式我们要清楚。�
 
 在 LeNet 网络中使用了卷积编码器和全连接层密集块。每一层的卷积都增加了通道数，每一个通道相当于一种识别图像空间信息的模式。mlp 将所有的模式进行计算。具体网络模型如下：
 ![模型](https://github.com/ZhangEnsure/pytorch-d2l-zh/raw/master/pic/lenet.jpg)
+
+## 现代卷积神经网络
+
+### AlexNet网络
+
+在传统的机器学习算法中，我们对图像的原始像素进行手动特征提取，将提取到的特征输入我们的 SVM 分类器进行分类，这是 1980-2012 年主要流行的方式。在深度学习中我们认为，数据的特征本身应当是被学习出来的，特征应当由多个共同学习的神经网络层组成，每个层都有可学习的参数。这是一个端到端、由原始像素输入到分类结果的系统。
+
+![对比](https://github.com/ZhangEnsure/pytorch-d2l-zh/raw/master/pic/alexnet.jpg)
+
+在 AlexNet 网络的底层，模型可以学习到类似传统滤波器的特征提取器。网络更高层可以建立在底层表示的基础之上表示更大的特征，例如眼睛、鼻子、草叶等等，更高层可以检测整个物体。最终的 Dense 可以学习到图像的综合表示，从而使属于不同类别的数据易于区分。
+
+AlexNet 与 LeNet 网络对比：
+
+1. 激活函数修改为 Relu，缓解梯度消失
+2. 隐藏层后添加了丢弃层
+3. 对原始图像进行了数据增强。例如图像的截取、明亮度变化、色温变化等等
+
+![模型对比](https://github.com/ZhangEnsure/pytorch-d2l-zh/raw/master/pic/lenet_alexnet.jpg)
+
