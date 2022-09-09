@@ -105,3 +105,6 @@ AlexNet 与 LeNet 网络对比：
 
 ![模型对比](https://github.com/ZhangEnsure/pytorch-d2l-zh/raw/master/pic/lenet_alexnet.jpg)
 
+### vgg
+
+为了更好的提升网络的精度，我们需要使用更多和更深的卷积，但是 AlexNet 模型缺少规律性，我们由此引入 vgg 网络。vgg 使用**可复用的卷积块**构造网络，不同的 vgg 模型可通过每个块中卷积块中卷积层和输出通道数量的差异来进行定义。
